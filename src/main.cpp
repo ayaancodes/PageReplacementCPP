@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include "q3_belady.h"
+
 
 std::vector<int> read_references_from_file(const std::string& filename) {
     std::vector<int> references;
@@ -45,5 +47,8 @@ int main() {
     csv_file.close();
     std::cout << "Page fault data written to: " << output_csv << "\n";
 
+    simulate_belady_anomaly();
+    generate_belady_sequence_and_test();
+    
     return 0;
 }
