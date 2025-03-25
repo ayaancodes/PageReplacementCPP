@@ -37,21 +37,22 @@ void generate_belady_sequence_and_test() {
 
     int frame_small = 3;
     int frame_large = 4;
+    int page_range = 10;        // Increase this
+    int sequence_length = 20;   // And this
 
     for (int seed = 0; seed < 10000; ++seed) {
         std::vector<int> sequence;
         srand(seed);
 
-        // Generate 12-page reference sequence with values between 1 and 5
-        for (int i = 0; i < 12; ++i) {
-            sequence.push_back(1 + rand() % 5);
+        for (int i = 0; i < sequence_length; ++i) {
+            sequence.push_back(1 + rand() % page_range);
         }
 
         int fifo_small = fifo_page_faults(sequence, frame_small);
         int fifo_large = fifo_page_faults(sequence, frame_large);
 
         if (fifo_large > fifo_small) {
-            std::cout << "\n🎯 Found Belady sequence at seed " << seed << ":\n";
+            std::cout << "\nFound Belady sequence at seed " << seed << ":\n";
             std::cout << "Sequence: ";
             for (int val : sequence) std::cout << val << " ";
             std::cout << "\nFIFO (" << frame_small << " frames): " << fifo_small << " faults\n";
@@ -62,3 +63,4 @@ void generate_belady_sequence_and_test() {
 
     std::cout << "\nNo sequence found in tested seeds. Try increasing the range.\n";
 }
+
